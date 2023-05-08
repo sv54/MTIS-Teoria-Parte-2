@@ -15,6 +15,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using IO.Swagger.Attributes;
+using System;
+using System.Linq;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
@@ -45,7 +47,7 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult GenerarIdentificador([FromBody]IdSeguimientoBody body, [FromHeader]string restKey)
-        { 
+        {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(InlineResponse201));
 
@@ -57,13 +59,17 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"id\" : \"LN11543234\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<InlineResponse201>(exampleJson)
-                        : default(InlineResponse201);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var aleatorio = new Random();
+            var identificador = new string(
+                Enumerable.Repeat(caracteres, 12)
+                .Select(s => s[aleatorio.Next(s.Length)])
+                .ToArray());
+            var json = JsonConvert.SerializeObject(new { id =  identificador});
+
+            //Guardar en la base de datos
+
+            return StatusCode(201, json);
         }
 
         /// <summary>
@@ -102,6 +108,9 @@ namespace IO.Swagger.Controllers
                         var example = exampleJson != null
                         ? JsonConvert.DeserializeObject<InlineResponse2011>(exampleJson)
                         : default(InlineResponse2011);            //TODO: Change the data returned
+
+
+            //Comprobar la longitud del identificador?
             return new ObjectResult(example);
         }
     }
