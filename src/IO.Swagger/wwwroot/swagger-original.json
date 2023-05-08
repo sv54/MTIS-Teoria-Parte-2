@@ -1,0 +1,1794 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "API MTIS - OpenAPI 3.0",
+    "description" : "Practica grupal  de MTIS de la Universidad de Alicante 2022-2023.\n\n_Esta documentacion esta escrita en el Swagger Editor y con OpenAPI 3.0_\n\n`Autor: Nikita Polyanskiy, Serhii Vidernikov, Robert Kazaryan, Víctor Hernández Justamante y Ángel Tamame Pérez`",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/VHJ1_1/MTIS/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "/"
+  } ],
+  "tags" : [ {
+    "name" : "Nombre de Recurso"
+  }, {
+    "name" : "Envio"
+  }, {
+    "name" : "Notificacion"
+  }, {
+    "name" : "Seguimiento"
+  }, {
+    "name" : "IdSeguimiento"
+  }, {
+    "name" : "CalcularCoste"
+  }, {
+    "name" : "EnviarPaquete"
+  }, {
+    "name" : "Reparitdor"
+  } ],
+  "paths" : {
+    "/NombreDeRecurso" : {
+      "put" : {
+        "tags" : [ "Nombre de Recurso" ],
+        "summary" : "",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Recurso"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Nombre de Recurso" ],
+        "summary" : "",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Recurso"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/NombreDeRecurso/{id}" : {
+      "get" : {
+        "tags" : [ "Nombre de Recurso" ],
+        "summary" : "",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Recurso"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Nombre de Recurso" ],
+        "summary" : "",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Envio/Pendientes" : {
+      "get" : {
+        "tags" : [ "Envio" ],
+        "summary" : "Devuelve todos los envios pendientes",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Envio"
+                  },
+                  "x-content-type" : "application/json"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Envio/{id}" : {
+      "get" : {
+        "tags" : [ "Envio" ],
+        "summary" : "Devuelve informacion de un envio",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id de envio",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Envio"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Envio" : {
+      "put" : {
+        "tags" : [ "Envio" ],
+        "summary" : "",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Envio"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Seguimiento"
+                  },
+                  "x-content-type" : "application/json"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Envio" ],
+        "summary" : "Registrar nuevo envio",
+        "description" : "Registrarmos nuevo envio",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Envio"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Envio"
+                  },
+                  "x-content-type" : "application/json"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Repartidor/Disponibles" : {
+      "get" : {
+        "tags" : [ "Repartidor" ],
+        "summary" : "Devuelve informacion de un envio",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Repartidor"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Seguimiento/{id}" : {
+      "get" : {
+        "tags" : [ "Seguimiento" ],
+        "summary" : "Obtener información de seguimiento por ID",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID del seguimiento a obtener",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Seguimiento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Seguimiento" ],
+        "summary" : "Actualizar un seguimiento existente.",
+        "operationId" : "updateSeguimiento",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID del seguimiento.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Seguimiento"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Seguimiento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Seguimiento" ],
+        "summary" : "Abrir acceso a un seguimiento para el cliente.",
+        "operationId" : "openAccesoSeguimiento",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID del seguimiento",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Seguimiento" : {
+      "post" : {
+        "tags" : [ "Seguimiento" ],
+        "summary" : "Crear un nuevo seguimiento",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Seguimiento"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Seguimiento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Notificacion/EnvioSinRecoger/{id}" : {
+      "post" : {
+        "tags" : [ "Notificacion" ],
+        "summary" : "Notifica al cliente para recoger el envio",
+        "description" : "Notifica al cliente mediante un correo de que no estaba presente para recoger el envio y tiene que pasarse por el centro de distribución local",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id del envio",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Recurso"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Notificacion/enviarCorreo" : {
+      "post" : {
+        "tags" : [ "Notificacion" ],
+        "summary" : "Notifica al cliente",
+        "description" : "Notifica al cliente mediante un correo de que hay una actualizacion respecto a su pedido",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Recurso"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/idSeguimiento" : {
+      "post" : {
+        "tags" : [ "IdSeguimiento" ],
+        "summary" : "Generar identificador de seguimiento",
+        "operationId" : "generarIdentificador",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Petición para generar un identificador de seguimiento",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/idSeguimiento_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/idSeguimiento/{id}" : {
+      "post" : {
+        "tags" : [ "IdSeguimiento" ],
+        "summary" : "Validar identificador de seguimiento",
+        "operationId" : "validarIdentificador",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Identificadora validar",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_201_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CalcularCoste" : {
+      "post" : {
+        "tags" : [ "CalcularCoste" ],
+        "summary" : "Calcula el coste de transporte",
+        "description" : "",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "DirIn",
+          "in" : "query",
+          "description" : "Direccion origen",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "DirIn_cp",
+          "in" : "query",
+          "description" : "Codigo Postal de origen",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "DirFin",
+          "in" : "query",
+          "description" : "Direccion destino",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "DirFin_cp",
+          "in" : "query",
+          "description" : "Codigo Postal de destino",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "Dimensiones",
+          "in" : "query",
+          "description" : "Dimensiones del paquete",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "12x32x45"
+          }
+        }, {
+          "name" : "Peso",
+          "in" : "query",
+          "description" : "Peso del paquete",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EnviarPaquete/confirmar" : {
+      "post" : {
+        "tags" : [ "EnviarPaquete" ],
+        "summary" : "Confirmar la recepcion del Paquete",
+        "description" : "Confirmamos la recepcion del Paquete en la oficina",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "idEnvio",
+          "in" : "query",
+          "description" : "Identificador del Envio",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EnviarPaquete/fecha" : {
+      "put" : {
+        "tags" : [ "EnviarPaquete" ],
+        "summary" : "Actualizar la fecha de la recogida del Paquete",
+        "description" : "Actualizamos la fecha de la recogida del Paquete por la ausencia del cliente",
+        "parameters" : [ {
+          "name" : "RestKey",
+          "in" : "header",
+          "description" : "Api Key",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "idEnvio",
+          "in" : "query",
+          "description" : "Identificador del Envio",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Recurso" : {
+        "required" : [ "codigoSala", "nivel", "nombre" ],
+        "type" : "object",
+        "properties" : {
+          "codigoSala" : {
+            "type" : "string",
+            "description" : "Codigo de una sala",
+            "example" : "1F"
+          },
+          "nombre" : {
+            "type" : "string",
+            "description" : "Nombre de una sala",
+            "example" : "Salon de actas"
+          },
+          "nivel" : {
+            "type" : "integer",
+            "description" : "Nivel de una sala",
+            "format" : "int64",
+            "example" : 1
+          }
+        },
+        "example" : {
+          "codigoSala" : "1F",
+          "nombre" : "Salon de actas",
+          "nivel" : 1
+        }
+      },
+      "Response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Estado de la peticion",
+            "example" : "Success, Bad request, etc."
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Mensaje mas concreto",
+            "example" : "Se ha creado con exito, El campo no es valido, etc."
+          }
+        },
+        "example" : {
+          "message" : "Se ha creado con exito, El campo no es valido, etc.",
+          "status" : "Success, Bad request, etc."
+        }
+      },
+      "Seguimiento" : {
+        "required" : [ "acceso", "estado", "identificador" ],
+        "type" : "object",
+        "properties" : {
+          "identificador" : {
+            "type" : "string",
+            "description" : "Identificador del seguimiento.",
+            "example" : "LN928756294"
+          },
+          "estado" : {
+            "type" : "string",
+            "description" : "Estado actual del seguimiento.",
+            "example" : "Enviado al pais destinatario"
+          },
+          "acceso" : {
+            "type" : "boolean",
+            "description" : "Indica si el seguimiento esta disponible para el cliente"
+          }
+        },
+        "example" : {
+          "estado" : "Enviado al pais destinatario",
+          "acceso" : true,
+          "identificador" : "LN928756294"
+        }
+      },
+      "Envio" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 5632
+          },
+          "estado" : {
+            "type" : "string",
+            "description" : "En_espera, En_curso o Entregado",
+            "example" : "En_espera"
+          },
+          "descripcion" : {
+            "type" : "string",
+            "example" : "Envio con material delicado"
+          },
+          "origen" : {
+            "type" : "string",
+            "example" : "Alicante"
+          },
+          "destino" : {
+            "type" : "string",
+            "example" : "Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante"
+          },
+          "peso" : {
+            "type" : "integer",
+            "description" : "En gramos",
+            "format" : "int64",
+            "example" : 300
+          },
+          "altura" : {
+            "type" : "integer",
+            "description" : "En centimetros",
+            "format" : "int64",
+            "example" : 10
+          },
+          "anchura" : {
+            "type" : "integer",
+            "description" : "En centimetros",
+            "format" : "int64",
+            "example" : 20
+          },
+          "longuitud" : {
+            "type" : "integer",
+            "description" : "En centimetros",
+            "format" : "int64",
+            "example" : 20
+          },
+          "importancia" : {
+            "type" : "string",
+            "description" : "Baja, Normal o Alta",
+            "example" : "Normal"
+          }
+        },
+        "example" : {
+          "descripcion" : "Envio con material delicado",
+          "importancia" : "Normal",
+          "estado" : "En_espera",
+          "peso" : 300,
+          "altura" : 10,
+          "anchura" : 20,
+          "longuitud" : 20,
+          "id" : 5632,
+          "origen" : "Alicante",
+          "destino" : "Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante"
+        }
+      },
+      "Repartidor" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 5632
+          },
+          "nombre" : {
+            "type" : "string",
+            "example" : "Pedro"
+          },
+          "appellidos" : {
+            "type" : "string",
+            "example" : "Torregrosa Peinado"
+          },
+          "estado" : {
+            "type" : "string",
+            "description" : "Puede ser libre, en envio o no disponible",
+            "example" : "Libre"
+          }
+        },
+        "example" : {
+          "estado" : "Libre",
+          "appellidos" : "Torregrosa Peinado",
+          "id" : 5632,
+          "nombre" : "Pedro"
+        }
+      },
+      "idSeguimiento_body" : {
+        "required" : [ "pedidoId" ],
+        "type" : "object",
+        "properties" : {
+          "pedidoId" : {
+            "type" : "integer",
+            "description" : "ID del pedido para el que se generará el identificador de seguimiento"
+          }
+        }
+      },
+      "inline_response_201" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "LN11543234"
+          }
+        },
+        "example" : {
+          "id" : "LN11543234"
+        }
+      },
+      "inline_response_201_1" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "identificador correcto"
+          }
+        },
+        "example" : {
+          "id" : true,
+          "message" : "identificador correcto"
+        }
+      }
+    },
+    "responses" : {
+      "200" : {
+        "description" : "Success",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      },
+      "400" : {
+        "description" : "Bad request",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      },
+      "401" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      },
+      "403" : {
+        "description" : "Forbidden",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      },
+      "404" : {
+        "description" : "Not found",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      },
+      "500" : {
+        "description" : "Internal error",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Response"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies" : {
+      "Recurso" : {
+        "description" : "Estructura para hacer peticiones",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Recurso"
+            }
+          }
+        }
+      },
+      "Envio" : {
+        "description" : "Estructura para hacer peticiones",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Envio"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Seguimiento" : {
+        "description" : "Estructura para hacer peticiones",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Seguimiento"
+            }
+          }
+        },
+        "required" : true
+      }
+    }
+  }
+}
