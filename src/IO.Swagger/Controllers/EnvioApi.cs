@@ -18,6 +18,8 @@ using IO.Swagger.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using IO.Swagger.Utils;
+using System.Diagnostics;
 
 namespace IO.Swagger.Controllers
 { 
@@ -125,28 +127,35 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioPost([FromBody]Envio body, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<Envio>));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
+        {
             
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<List<Envio>>(exampleJson)
-                        : default(List<Envio>);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            string exampleJson;
+
+            
+            /* Comprobar rest key
+            if (!conexion.esCorrectaRestKey(body.RestKey))
+            {
+                return StatusCode(403, JsonConvert.DeserializeObject("{\"mensaje\" : \"RestKey incorrecta\"}"));
+            }
+            */
+            
+
+                string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
+                    "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longuitud + "', '" + body.Importancia + "')";
+            if (DBUtils.DbModif(insertRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Mal input\"\n}"));
+
+            }
+
+        //exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
+        
+
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace IO.Swagger.Utils
 {
@@ -10,9 +11,9 @@ namespace IO.Swagger.Utils
     public abstract class DBUtils
     {
         static string servidor = "localhost"; //Nombre o ip del servidor de MySQL
-        static string bd = "mtis";            //Nombre de la base de datos
+        static string bd = "mtisteoria";            //Nombre de la base de datos
         static string usuario = "root";       //Usuario de acceso a MySQL
-        static string password = "PASWORD";   //Contraseña de usuario de acceso a MySQL
+        static string password = "root";   //Contraseña de usuario de acceso a MySQL
 
         //Crearemos la cadena de conexión concatenando las variables
         static string connectionString = "Server=" + servidor + ";Database=" + bd + ";Uid=" + usuario + ";Pwd=" + password + ";";
@@ -38,7 +39,10 @@ namespace IO.Swagger.Utils
             }
             catch (Exception e)
             {
+                Console.WriteLine("ERROR: ");
                 Console.WriteLine(e.ToString());
+                Debug.WriteLine("ERROR: \n\n");
+                Debug.WriteLine(e.ToString());
             }
             finally
             {
