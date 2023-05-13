@@ -60,7 +60,7 @@ namespace IO.Swagger.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
             string exampleJson = null;
-            exampleJson = "{\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}";
+            //exampleJson = "{\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}";
             
                         var example = exampleJson != null
                         ? JsonConvert.DeserializeObject<Envio>(exampleJson)
@@ -128,10 +128,7 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioPost([FromBody]Envio body, [FromHeader]string restKey)
         {
-            
-            string exampleJson;
-
-            
+             
             /* Comprobar rest key
             if (!conexion.esCorrectaRestKey(body.RestKey))
             {
@@ -140,7 +137,7 @@ namespace IO.Swagger.Controllers
             */
             
 
-                string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
+            string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
                     "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longuitud + "', '" + body.Importancia + "')";
             if (DBUtils.DbModif(insertRowSQL))
             {
@@ -149,7 +146,7 @@ namespace IO.Swagger.Controllers
             }
             else
             {
-                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Mal input\"\n}"));
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
 
             }
 
@@ -178,28 +175,22 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioPut([FromBody]Envio body, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<Seguimiento>));
+        {
+            //UPDATE `mtisteoria`.`envio` SET `estado` = 'stringg', `descripcion` = 'g', `origen` = 'g', `destino` = 'g', `peso` = '1', `altura` = '2', `anchura` = '1', `longitud` = '1', `importancia` = 'g' WHERE (`id` = '3');
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
+            string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = '" + body.Estado + "', descripcion = '" + body.Descripcion + "', origen = '" + body.Origen + "', destino = '" + body.Destino + "', " +
+                    " peso = '" + body.Peso + "', altura = '" + body.Altura + "', anchura = '" + body.Anchura + "', longitud = '" + body.Longuitud + "', importancia = '" + body.Importancia + "' " +
+                    " WHERE id = '"+body.Id +"'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "[ {\n  \"estado\" : \"Enviado al pais destinatario\",\n  \"acceso\" : true,\n  \"identificador\" : \"LN928756294\"\n}, {\n  \"estado\" : \"Enviado al pais destinatario\",\n  \"acceso\" : true,\n  \"identificador\" : \"LN928756294\"\n} ]";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<List<Seguimiento>>(exampleJson)
-                        : default(List<Seguimiento>);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            }
         }
     }
 }

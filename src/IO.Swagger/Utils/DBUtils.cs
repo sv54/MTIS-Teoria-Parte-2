@@ -34,8 +34,8 @@ namespace IO.Swagger.Utils
                 cmd = new MySqlCommand(command, conexion);
                 conexion.Open();
                 // Modificar
-                cmd.ExecuteNonQuery();
-                result = true;
+                int filasModificadas = cmd.ExecuteNonQuery();
+                result = filasModificadas > 0;
             }
             catch (Exception e)
             {
