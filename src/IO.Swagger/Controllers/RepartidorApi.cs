@@ -18,6 +18,8 @@ using IO.Swagger.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using IO.Swagger.Utils;
+using System.Diagnostics;
 
 namespace IO.Swagger.Controllers
 { 
@@ -44,25 +46,38 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult RepartidorDisponiblesGet([FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Repartidor));
+        {
+            List<Repartidor> envios = new List<Repartidor>();
+            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            result = DBUtils.DbGet("SELECT * FROM repartidor WHERE estado='disponible'");
+            for (int i = 0; i < result.Count; i++)
+            {
+                Repartidor response = new Repartidor();
+                
+                string id = "";
+                string nombre = "";
+                string appellidos = "";
+                string estado = "";
+                
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
+                Debug.WriteLine("result?");
+                result[i].TryGetValue("id", out id);
+                result[i].TryGetValue("nombre", out nombre);
+                result[i].TryGetValue("apellidos", out appellidos);
+                result[i].TryGetValue("estado", out estado);
+                
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
+                Debug.WriteLine("response?");
+                response.Id = int.Parse(id);
+                response.Nombre = nombre;
+                response.Appellidos = appellidos;
+                response.Estado = estado;
+               
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"estado\" : \"Libre\",\n  \"appellidos\" : \"Torregrosa Peinado\",\n  \"id\" : 5632,\n  \"nombre\" : \"Pedro\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Repartidor>(exampleJson)
-                        : default(Repartidor);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                Debug.WriteLine("200?");
+                envios.Add(response);
+            }
+            return StatusCode(200, envios);
         }
     }
 }
