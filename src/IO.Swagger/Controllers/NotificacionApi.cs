@@ -18,6 +18,7 @@ using IO.Swagger.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using System.Net.Mail;
 
 namespace IO.Swagger.Controllers
 { 
@@ -26,7 +27,26 @@ namespace IO.Swagger.Controllers
     /// </summary>
     [ApiController]
     public class NotificacionApiController : ControllerBase
-    { 
+    {
+
+        private void enviarCorreo(string destino, string subject, string mensaje)
+        {
+            // Configurar los parámetros del servidor SMTP
+            SmtpClient smtpClient = new SmtpClient("localhost", 25);
+            //smtpClient.Credentials = new NetworkCredential("username", "password");
+
+            // Configurar el mensaje de correo electrónico
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("servidorAPI@example.com");
+            mailMessage.To.Add(new MailAddress(destino));
+            mailMessage.Subject = subject;
+            mailMessage.Body = mensaje;
+
+            // Enviar el mensaje de correo electrónico
+            smtpClient.Send(mailMessage);
+        }
+
+
         /// <summary>
         /// Notifica al cliente
         /// </summary>
@@ -38,33 +58,22 @@ namespace IO.Swagger.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
         [HttpPost]
-        [Route("/VHJ1_1/MTIS/1.0.0/Notificacion/enviarCorreo")]
+        [Route("/VHJ1_1/MTIS/1.0.0/Notificacion/enviarCorreo/{correo}")]
         [ValidateModelState]
         [SwaggerOperation("NotificacionEnviarCorreoPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(Response), description: "Success")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
-        public virtual IActionResult NotificacionEnviarCorreoPost([FromBody]Recurso body, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Response));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"message\" : \"Se ha creado con exito, El campo no es valido, etc.\",\n  \"status\" : \"Success, Bad request, etc.\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Response>(exampleJson)
-                        : default(Response);            //TODO: Change the data returned
-            return new ObjectResult(example);
+        public virtual IActionResult NotificacionEnviarCorreoPost([FromRoute][Required] string correo, [FromBody]Recurso body, [FromHeader]string restKey)
+        {
+            try { 
+                enviarCorreo(correo,"Recogida de paquete", "No ha estado presente para la recogida del paquete. Deberá pasarse por el centro de recogida más cercano para poder obtener su paquete.");
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha notificado al cliente\"\n}"));
+            }catch(Exception e)
+            {
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Error enviando el correo\"\n}"));
+            }
         }
 
         /// <summary>
