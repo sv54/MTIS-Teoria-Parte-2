@@ -91,8 +91,8 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>En centimetros</value>
 
-        [DataMember(Name="longuitud")]
-        public long? Longuitud { get; set; }
+        [DataMember(Name="longitud")]
+        public long? Longitud { get; set; }
 
         /// <summary>
         /// Baja, Normal o Alta
@@ -118,7 +118,7 @@ namespace IO.Swagger.Models
             sb.Append("  Peso: ").Append(Peso).Append("\n");
             sb.Append("  Altura: ").Append(Altura).Append("\n");
             sb.Append("  Anchura: ").Append(Anchura).Append("\n");
-            sb.Append("  Longuitud: ").Append(Longuitud).Append("\n");
+            sb.Append("  Longitud: ").Append(Longitud).Append("\n");
             sb.Append("  Importancia: ").Append(Importancia).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -197,9 +197,9 @@ namespace IO.Swagger.Models
                     Anchura.Equals(other.Anchura)
                 ) && 
                 (
-                    Longuitud == other.Longuitud ||
-                    Longuitud != null &&
-                    Longuitud.Equals(other.Longuitud)
+                    Longitud == other.Longitud ||
+                    Longitud != null &&
+                    Longitud.Equals(other.Longitud)
                 ) && 
                 (
                     Importancia == other.Importancia ||
@@ -234,8 +234,8 @@ namespace IO.Swagger.Models
                     hashCode = hashCode * 59 + Altura.GetHashCode();
                     if (Anchura != null)
                     hashCode = hashCode * 59 + Anchura.GetHashCode();
-                    if (Longuitud != null)
-                    hashCode = hashCode * 59 + Longuitud.GetHashCode();
+                    if (Longitud != null)
+                    hashCode = hashCode * 59 + Longitud.GetHashCode();
                     if (Importancia != null)
                     hashCode = hashCode * 59 + Importancia.GetHashCode();
                 return hashCode;

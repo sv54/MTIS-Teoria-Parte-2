@@ -47,25 +47,47 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioIdGet([FromRoute][Required]string id, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Envio));
+        {
+            List<Envio> envios = new List<Envio>();
+            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            result = DBUtils.DbGet("SELECT * FROM envio WHERE estado='pendiente'");
+            if(result.Count != 0)
+            {
+                Envio envio = new Envio();
+                string estado = "";
+                string descripcion = "";
+                string origen = "";
+                string destino = "";
+                string peso = "";
+                string altura = "";
+                string anchura = "";
+                string longitud = "";
+                string importancia = "";
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
+                result[0].TryGetValue("estado", out estado);
+                result[0].TryGetValue("descripcion", out descripcion);
+                result[0].TryGetValue("origen", out origen);
+                result[0].TryGetValue("destino", out destino);
+                result[0].TryGetValue("peso", out peso);
+                result[0].TryGetValue("altura", out altura);
+                result[0].TryGetValue("anchura", out anchura);
+                result[0].TryGetValue("longitud", out longitud);
+                result[0].TryGetValue("importancia", out importancia);
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
+                envio.Id = int.Parse(id);
+                envio.Estado = estado;
+                envio.Descripcion = descripcion;
+                envio.Origen = origen;
+                envio.Destino = destino;
+                envio.Peso = int.Parse(peso);
+                envio.Altura = int.Parse(altura);
+                envio.Anchura = int.Parse(anchura);
+                envio.Longitud = int.Parse(longitud);
+                envio.Importancia = importancia;
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            //exampleJson = "{\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Envio>(exampleJson)
-                        : default(Envio);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return StatusCode(200, envio);
+            }
+            return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se ha encontrado envio con id "+id+"\"\n}"));
         }
 
         /// <summary>
@@ -85,25 +107,52 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioPendientesGet([FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(List<Envio>));
+        {
+            List<Envio> envios = new List<Envio>();
+            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            result = DBUtils.DbGet("SELECT * FROM envio WHERE estado='pendiente'");
+            for (int i = 0; i< result.Count; i++)
+            {
+                Envio response = new Envio();
+                string id = "";
+                string estado = "";
+                string descripcion = "";
+                string origen = "";
+                string destino = "";
+                string peso = "";
+                string altura = "";
+                string anchura = "";
+                string longitud = "";
+                string importancia = "";
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
+                Debug.WriteLine("result?");
+                result[i].TryGetValue("id", out id);
+                result[i].TryGetValue("estado", out estado);
+                result[i].TryGetValue("descripcion", out descripcion);
+                result[i].TryGetValue("origen", out origen);
+                result[i].TryGetValue("destino", out destino);
+                result[i].TryGetValue("peso", out peso);
+                result[i].TryGetValue("altura", out altura);
+                result[i].TryGetValue("anchura", out anchura);
+                result[i].TryGetValue("longitud", out longitud);
+                result[i].TryGetValue("importancia", out importancia);
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
+                Debug.WriteLine("response?");
+                response.Id = int.Parse(id);
+                response.Estado = estado;
+                response.Descripcion = descripcion;
+                response.Origen = origen;
+                response.Destino = destino;
+                response.Peso = int.Parse(peso);
+                response.Altura = int.Parse(altura);
+                response.Anchura = int.Parse(anchura);
+                response.Longitud = int.Parse(longitud);
+                response.Importancia = importancia;
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<List<Envio>>(exampleJson)
-                        : default(List<Envio>);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                Debug.WriteLine("200?");
+                envios.Add(response);
+            }
+                return StatusCode(200, envios);
         }
 
         /// <summary>
@@ -138,7 +187,8 @@ namespace IO.Swagger.Controllers
             
 
             string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
-                    "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longuitud + "', '" + body.Importancia + "')";
+                    "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longitud
+                    + "', '" + body.Importancia + "')";
             if (DBUtils.DbModif(insertRowSQL))
             {
 
@@ -150,7 +200,7 @@ namespace IO.Swagger.Controllers
 
             }
 
-        //exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longuitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
+        //exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
         
 
         }
@@ -179,7 +229,7 @@ namespace IO.Swagger.Controllers
             //UPDATE `mtisteoria`.`envio` SET `estado` = 'stringg', `descripcion` = 'g', `origen` = 'g', `destino` = 'g', `peso` = '1', `altura` = '2', `anchura` = '1', `longitud` = '1', `importancia` = 'g' WHERE (`id` = '3');
 
             string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = '" + body.Estado + "', descripcion = '" + body.Descripcion + "', origen = '" + body.Origen + "', destino = '" + body.Destino + "', " +
-                    " peso = '" + body.Peso + "', altura = '" + body.Altura + "', anchura = '" + body.Anchura + "', longitud = '" + body.Longuitud + "', importancia = '" + body.Importancia + "' " +
+                    " peso = '" + body.Peso + "', altura = '" + body.Altura + "', anchura = '" + body.Anchura + "', longitud = '" + body.Longitud + "', importancia = '" + body.Importancia + "' " +
                     " WHERE id = '"+body.Id +"'";
             if (DBUtils.DbModif(updateRowSQL))
             {
