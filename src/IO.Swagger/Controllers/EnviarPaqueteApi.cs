@@ -129,7 +129,7 @@ namespace IO.Swagger.Controllers
                 {
                     Response response = new Response();
                     response.Status = "Bad request";
-                    response.Message = "No se ha podido actualizar la fecha de recogida del paquetete";
+                    response.Message = "No se ha podido actualizar la fecha de recogida del paquete";
                     return StatusCode(400, response);
                 }
             }
