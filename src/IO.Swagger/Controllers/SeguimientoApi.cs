@@ -18,6 +18,7 @@ using IO.Swagger.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using IO.Swagger.Utils;
 
 namespace IO.Swagger.Controllers
 { 
@@ -46,7 +47,7 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult OpenAccesoSeguimiento([FromRoute][Required]string id)
-        { 
+        {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Response));
 
@@ -61,13 +62,19 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"message\" : \"Se ha creado con exito, El campo no es valido, etc.\",\n  \"status\" : \"Success, Bad request, etc.\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Response>(exampleJson)
-                        : default(Response);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            //UPDATE `mtisteoria`.`envio` SET `estado` = 'stringg', `descripcion` = 'g', `origen` = 'g', `destino` = 'g', `peso` = '1', `altura` = '2', `anchura` = '1', `longitud` = '1', `importancia` = 'g' WHERE (`id` = '3');
+
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + 1 + "' WHERE id = '" + id + "'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
         }
 
         /// <summary>
@@ -105,13 +112,17 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"estado\" : \"Enviado al pais destinatario\",\n  \"acceso\" : true,\n  \"identificador\" : \"LN928756294\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Seguimiento>(exampleJson)
-                        : default(Seguimiento);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            sql = "SELECT * FROM seguimiento WHERE codigo='"+id+"'";
+            result = DBUtils.DbMGet(sql) 
+            if(result.Count != 0)
+            {
+                return StatusCode(200, JsonConvert.DeserializeObject(result));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
         }
 
         /// <summary>
@@ -149,13 +160,16 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"estado\" : \"Enviado al pais destinatario\",\n  \"acceso\" : true,\n  \"identificador\" : \"LN928756294\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Seguimiento>(exampleJson)
-                        : default(Seguimiento);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, acceso)" +
+                    "VALUES('"+body.codigo+"', 0)";
+            if (DBUtils.DbModif(insertRowSQL))
+            {
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+            }
         }
 
         /// <summary>
@@ -193,13 +207,17 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"estado\" : \"Enviado al pais destinatario\",\n  \"acceso\" : true,\n  \"identificador\" : \"LN928756294\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Seguimiento>(exampleJson)
-                        : default(Seguimiento);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + body.acceso + "' WHERE id = '" + id + "'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
         }
     }
 }
