@@ -62,13 +62,12 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            //UPDATE `mtisteoria`.`envio` SET `estado` = 'stringg', `descripcion` = 'g', `origen` = 'g', `destino` = 'g', `peso` = '1', `altura` = '2', `anchura` = '1', `longitud` = '1', `importancia` = 'g' WHERE (`id` = '3');
 
             string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + 1 + "' WHERE id = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
 
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el envio\"\n}"));
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
             }
             else
             {
@@ -160,11 +159,11 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, acceso)" +
-                    "VALUES('"+body.codigo+"', 0)";
+            string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, estado ,acceso)" +
+                    "VALUES('"+body.codigo+"','procesando', 0)";
             if (DBUtils.DbModif(insertRowSQL))
             {
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el envio\"\n}"));
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el seguimiento\"\n}"));
             }
             else
             {
@@ -207,11 +206,11 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + body.acceso + "' WHERE id = '" + id + "'";
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + body.acceso + "', estado = '" + body.estado + "', WHERE id = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
 
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el envio\"\n}"));
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
             }
             else
             {
