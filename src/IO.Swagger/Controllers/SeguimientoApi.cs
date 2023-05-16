@@ -111,11 +111,11 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            sql = "SELECT * FROM seguimiento WHERE codigo='"+id+"'";
-            result = DBUtils.DbMGet(sql) 
+            var sql = "SELECT * FROM seguimiento WHERE codigo='"+id+"'";
+            var result = DBUtils.DbGet(sql);
             if(result.Count != 0)
             {
-                return StatusCode(200, JsonConvert.DeserializeObject(result));
+                return StatusCode(200, result);
             }
             else
             {
@@ -160,7 +160,7 @@ namespace IO.Swagger.Controllers
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
             string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, estado ,acceso)" +
-                    "VALUES('"+body.codigo+"','procesando', 0)";
+                    "VALUES('"+body.Identificador + "','procesando', 0)";
             if (DBUtils.DbModif(insertRowSQL))
             {
                 return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el seguimiento\"\n}"));
@@ -206,7 +206,7 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + body.acceso + "', estado = '" + body.estado + "', WHERE id = '" + id + "'";
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + body.Acceso + "', estado = '" + body.Estado + "', WHERE id = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
 
