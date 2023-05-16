@@ -20,6 +20,7 @@ using System.Linq;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using IO.Swagger.Utils;
 
 namespace IO.Swagger.Controllers
 { 
@@ -59,6 +60,13 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
+            Response response = new Response();
+            //if (!ApiKeyAuth.Auth(restKey))
+            //{
+            //    response.Status = "Unauthorized";
+            //    response.Message = "Falta el RestKey o es invalido";
+            //    return StatusCode(401, response);
+            //}
             const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var aleatorio = new Random();
             var identificador = new string(
@@ -90,7 +98,7 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult ValidarIdentificador([FromRoute][Required]string id, [FromHeader]string restKey)
-        { 
+        {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(InlineResponse2011));
 
@@ -102,16 +110,20 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"id\" : true,\n  \"message\" : \"identificador correcto\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<InlineResponse2011>(exampleJson)
-                        : default(InlineResponse2011);            //TODO: Change the data returned
-
-
-            //Comprobar la longitud del identificador?
-            return new ObjectResult(example);
+            if (id.Length != 12)
+            {
+                return BadRequest("El ID debe tener 12 caracteres.");
+            }
+            string caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            foreach (char c in id)
+            {
+                if (!caracteresPermitidos.Contains(c))
+                {
+                    return BadRequest(new { response = false });
+                }
+            }
+            var response = new { response = true };
+            return Ok(response);
         }
     }
 }
