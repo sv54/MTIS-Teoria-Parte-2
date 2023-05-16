@@ -80,9 +80,9 @@ namespace IO.Swagger.Controllers
                 else
                 {
                     Response response = new Response();
-                    response.Status = "Not found";
+                    response.Status = "Bad request";
                     response.Message = "Las direcciones estan fuera de la area de cobertura";
-                    return StatusCode(404, response);
+                    return StatusCode(400, response);
                 }
             }
             catch (Exception)
