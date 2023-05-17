@@ -51,28 +51,27 @@ namespace IO.Swagger.Controllers
         /// Notifica al cliente
         /// </summary>
         /// <remarks>Notifica al cliente mediante un correo de que hay una actualizacion respecto a su pedido</remarks>
-        /// <param name="body">Estructura para hacer peticiones</param>
         /// <param name="restKey">Api Key</param>
         /// <response code="200">Success</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
         [HttpPost]
-        [Route("/VHJ1_1/MTIS/1.0.0/Notificacion/enviarCorreo/{correo}")]
+        [Route("/VHJ1_1/MTIS/1.0.0/Notificacion/enviarCorreo/{correo}/{tema}")]
         [ValidateModelState]
         [SwaggerOperation("NotificacionEnviarCorreoPost")]
         [SwaggerResponse(statusCode: 200, type: typeof(Response), description: "Success")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
-        public virtual IActionResult NotificacionEnviarCorreoPost([FromRoute][Required] string correo, [FromBody]Recurso body, [FromHeader]string restKey)
+        public virtual IActionResult NotificacionEnviarCorreoPost([FromRoute][Required] string correo, [FromRoute][Required] string tema, [FromHeader]string restKey)
         {
             try { 
-                enviarCorreo(correo,"Recogida de paquete", "No ha estado presente para la recogida del paquete. Deberá pasarse por el centro de recogida más cercano para poder obtener su paquete.");
+                enviarCorreo(correo, tema, "No ha estado presente para la recogida del paquete. Deberá pasarse por el centro de recogida más cercano para poder obtener su paquete.");
                 return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha notificado al cliente\"\n}"));
-            }catch(Exception e)
+            }catch(Exception)
             {
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Error enviando el correo\"\n}"));
+                return StatusCode(500, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Error enviando el correo\"\n}"));
             }
         }
 
