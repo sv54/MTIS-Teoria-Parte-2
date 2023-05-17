@@ -60,6 +60,7 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(500, default(Response));
+
             Response response = new Response();
             //if (!ApiKeyAuth.Auth(restKey))
             //{
@@ -90,7 +91,7 @@ namespace IO.Swagger.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
         [HttpPost]
-        [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento/{id}")]
+        [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento/validar/{id}")]
         [ValidateModelState]
         [SwaggerOperation("ValidarIdentificador")]
         [SwaggerResponse(statusCode: 201, type: typeof(InlineResponse2011), description: "OK")]
@@ -99,17 +100,6 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult ValidarIdentificador([FromRoute][Required]string id, [FromHeader]string restKey)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(InlineResponse2011));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
             if (id.Length != 12)
             {
                 return BadRequest("El ID debe tener 12 caracteres.");
