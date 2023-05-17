@@ -66,8 +66,9 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult NotificacionEnviarCorreoPost([FromRoute][Required] string correo, [FromRoute][Required] string tema, [FromHeader]string restKey)
         {
+            // No ha estado presente para la recogida del paquete.Deberá pasarse por el centro de recogida más cercano para poder obtener su paquete.
             try { 
-                enviarCorreo(correo, tema, "No ha estado presente para la recogida del paquete. Deberá pasarse por el centro de recogida más cercano para poder obtener su paquete.");
+                enviarCorreo(correo, tema, "");
                 return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha notificado al cliente\"\n}"));
             }catch(Exception)
             {
