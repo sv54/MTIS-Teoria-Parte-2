@@ -18,6 +18,7 @@ using IO.Swagger.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
+using IO.Swagger.Utils;
 
 namespace IO.Swagger.Controllers
 { 
@@ -46,25 +47,41 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnviarPaqueteConfirmarPost([FromQuery][Required()]string idEnvio, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Response));
+        {
+            try
+            {
+                /*if (!ApiKeyAuth.Auth(restKey))
+                {
+                    Response response = new Response();
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
+                    response.Status = "Unauthorized";
+                    response.Message = "Falta el RestKey o es invalido";
+                    return StatusCode(401, response);
+                }*/
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
+                if (DBUtils.DbModif("UPDATE envio SET estado='recibido' WHERE id='" + idEnvio.ToString() + "'"))
+                {
+                    Response response = new Response();
+                    response.Status = "Success";
+                    response.Message = "La recepcion del paquete se ha confirmado con exito";
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"message\" : \"Se ha creado con exito, El campo no es valido, etc.\",\n  \"status\" : \"Success, Bad request, etc.\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Response>(exampleJson)
-                        : default(Response);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                    return StatusCode(200, response);
+                }
+                else
+                {
+                    Response response = new Response();
+                    response.Status = "Bad request";
+                    response.Message = "No se ha podido confirmar la recepcion del paquete";
+                    return StatusCode(400, response);
+                }
+            }
+            catch (Exception)
+            {
+                Response response = new Response();
+                response.Status = "Internal error";
+                response.Message = "Algo ha ido mal";
+                return StatusCode(500, response);
+            }
         }
 
         /// <summary>
@@ -88,28 +105,41 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnviarPaqueteFechaPut([FromQuery][Required()]string idEnvio, [FromHeader]string restKey)
-        { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Response));
+        {
+            try
+            {
+                /*if (!ApiKeyAuth.Auth(restKey))
+                {
+                    Response response = new Response();
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
+                    response.Status = "Unauthorized";
+                    response.Message = "Falta el RestKey o es invalido";
+                    return StatusCode(401, response);
+                }*/
+                DateTime fechaActual = DateTime.Now.AddDays(5);
+                if (DBUtils.DbModif("UPDATE envio SET fechaRecogida='"+ fechaActual.ToString("yyyy-MM-dd") + "' WHERE id='" + idEnvio.ToString() + "'"))
+                {
+                    Response response = new Response();
+                    response.Status = "Success";
+                    response.Message = "La fecha de recogida del paquete se ha actualizado con exito";
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-            string exampleJson = null;
-            exampleJson = "{\n  \"message\" : \"Se ha creado con exito, El campo no es valido, etc.\",\n  \"status\" : \"Success, Bad request, etc.\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Response>(exampleJson)
-                        : default(Response);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                    return StatusCode(200, response);
+                }
+                else
+                {
+                    Response response = new Response();
+                    response.Status = "Bad request";
+                    response.Message = "No se ha podido actualizar la fecha de recogida del paquete";
+                    return StatusCode(400, response);
+                }
+            }
+            catch (Exception)
+            {
+                Response response = new Response();
+                response.Status = "Internal error";
+                response.Message = "Algo ha ido mal";
+                return StatusCode(500, response);
+            }
         }
     }
 }
