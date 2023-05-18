@@ -33,9 +33,8 @@ namespace IO.Swagger.Controllers
         /// <summary>
         /// Generar identificador de seguimiento
         /// </summary>
-        /// <param name="body">Petición para generar un identificador de seguimiento</param>
         /// <param name="restKey">Api Key</param>
-        /// <response code="201">OK</response>
+        /// <response code="200">OK</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
@@ -43,24 +42,12 @@ namespace IO.Swagger.Controllers
         [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento")]
         [ValidateModelState]
         [SwaggerOperation("GenerarIdentificador")]
-        [SwaggerResponse(statusCode: 201, type: typeof(InlineResponse201), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse201), description: "OK")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
-        public virtual IActionResult GenerarIdentificador([FromBody]IdSeguimientoBody body, [FromHeader]string restKey)
+        public virtual IActionResult GenerarIdentificador( [FromHeader]string restKey)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(InlineResponse201));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(Response));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(Response));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(Response));
-
             Response response = new Response();
             //if (!ApiKeyAuth.Auth(restKey))
             //{
@@ -74,11 +61,11 @@ namespace IO.Swagger.Controllers
                 Enumerable.Repeat(caracteres, 12)
                 .Select(s => s[aleatorio.Next(s.Length)])
                 .ToArray());
-            var json = JsonConvert.SerializeObject(new { id =  identificador});
+            var json = JsonConvert.SerializeObject(new { codigo =  identificador});
 
             //Guardar en la base de datos
 
-            return StatusCode(201, json);
+            return Ok(identificador);
         }
 
         /// <summary>
