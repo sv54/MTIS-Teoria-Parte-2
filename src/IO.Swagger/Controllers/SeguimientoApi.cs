@@ -116,7 +116,10 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult SeguimientoPost([FromBody]Seguimiento body, [FromHeader]string restKey)
-        { 
+        {
+
+            Console.WriteLine("-----------------------------------");
+
             string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, estado ,acceso, fk_paquete)" +
                     "VALUES('"+body.Identificador + "','procesando', 0, '"+body.envioId.ToString()+"')";
             Console.WriteLine(insertRowSQL);

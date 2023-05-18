@@ -66,7 +66,7 @@ namespace IO.Swagger.Controllers
             Response response = new Response();
             response.Status = "Success";
             response.Message = identificador;
-            return StatusCode(200, response);
+            return Ok(identificador);
         }
 
         /// <summary>
