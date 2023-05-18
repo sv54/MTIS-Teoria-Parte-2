@@ -189,10 +189,13 @@ namespace IO.Swagger.Controllers
             string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
                     "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longitud
                     + "', '" + body.Importancia + "')";
-            if (DBUtils.DbModif(insertRowSQL))
+            int respDB = DBUtils.DbCreateReturnId(insertRowSQL);
+            if (respDB != 0)
             {
-
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el envio\"\n}"));
+                Response response = new Response();
+                response.Status = "";
+                response.Message = respDB.ToString();
+                return StatusCode(200, response);
             }
             else
             {
