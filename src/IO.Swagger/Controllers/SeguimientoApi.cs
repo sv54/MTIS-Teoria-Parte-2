@@ -117,8 +117,9 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult SeguimientoPost([FromBody]Seguimiento body, [FromHeader]string restKey)
         { 
-            string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, estado ,acceso)" +
-                    "VALUES('"+body.Identificador + "','procesando', 0)";
+            string insertRowSQL = "INSERT INTO mtisteoria.seguimiento (codigo, estado ,acceso, fk_paquete)" +
+                    "VALUES('"+body.Identificador + "','procesando', 0, '"+body.envioId.ToString()+"')";
+            Console.WriteLine(insertRowSQL);
             if (DBUtils.DbModif(insertRowSQL))
             {
                 return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha creado el seguimiento\"\n}"));
@@ -151,7 +152,6 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult UpdateSeguimiento([FromBody]Seguimiento body, [FromRoute][Required]string id)
         {
             var accesoInt = 0;
-            Console.WriteLine( body.Estado);
             if (body.Acceso == true) {
                 accesoInt = 1;
             }

@@ -53,6 +53,9 @@ namespace IO.Swagger.Models
         [DataMember(Name="acceso")]
         public bool? Acceso { get; set; }
 
+        [DataMember(Name = "envioId")]
+        public string envioId { get; set; }
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
