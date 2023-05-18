@@ -78,7 +78,7 @@ namespace IO.Swagger.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
-        [HttpPost]
+        [HttpGet]
         [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento/validar/{id}")]
         [ValidateModelState]
         [SwaggerOperation("ValidarIdentificador")]
@@ -91,10 +91,12 @@ namespace IO.Swagger.Controllers
             Response response = new Response();
             if (id.Length != 12)
             {
-                //return BadRequest("El ID debe tener 12 caracteres.");
-                response.Status = "BadRequest";
-                response.Message = "false";
-                return StatusCode(400, response);
+                return Ok(false);
+
+               // //return BadRequest("El ID debe tener 12 caracteres.");
+               // response.Status = "BadRequest";
+               // response.Message = "false";
+               // return StatusCode(400, response);
 
             }
             string caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -102,18 +104,16 @@ namespace IO.Swagger.Controllers
             {
                 if (!caracteresPermitidos.Contains(c))
                 {
-                    //return BadRequest(new { response = false });
+                    return Ok(false);
                     
-                    response.Status = "BadRequest";
-                    response.Message = "false";
-                    return StatusCode(400, response);
+                    //response.Status = "BadRequest";
+                    //response.Message = "false";
+                    ////return StatusCode(400, response);
                 }
             }
-            //var response = new { response = true };
-            //return Ok(response);
             response.Status = "Success";
             response.Message = "true";
-            return StatusCode(200, response);
+            return Ok(true);
         }
     }
 }
