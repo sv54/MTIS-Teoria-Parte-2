@@ -38,17 +38,16 @@ namespace IO.Swagger.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
-        [HttpPost]
+        [HttpGet]
         [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento")]
         [ValidateModelState]
         [SwaggerOperation("GenerarIdentificador")]
-        [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse201), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Response), description: "Success")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult GenerarIdentificador( [FromHeader]string restKey)
         {
-            Response response = new Response();
             //if (!ApiKeyAuth.Auth(restKey))
             //{
             //    response.Status = "Unauthorized";
@@ -61,11 +60,13 @@ namespace IO.Swagger.Controllers
                 Enumerable.Repeat(caracteres, 12)
                 .Select(s => s[aleatorio.Next(s.Length)])
                 .ToArray());
-            var json = JsonConvert.SerializeObject(new { codigo =  identificador});
+            //var json = JsonConvert.SerializeObject(new { codigo =  identificador});
 
             //Guardar en la base de datos
-
-            return Ok(identificador);
+            Response response = new Response();
+            response.Status = "Success";
+            response.Message = identificador;
+            return StatusCode(200, response);
         }
 
         /// <summary>
@@ -81,26 +82,38 @@ namespace IO.Swagger.Controllers
         [Route("/VHJ1_1/MTIS/1.0.0/idSeguimiento/validar/{id}")]
         [ValidateModelState]
         [SwaggerOperation("ValidarIdentificador")]
-        [SwaggerResponse(statusCode: 201, type: typeof(InlineResponse2011), description: "OK")]
+        [SwaggerResponse(statusCode: 201, type: typeof(Response), description: "Success")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult ValidarIdentificador([FromRoute][Required]string id, [FromHeader]string restKey)
         {
+            Response response = new Response();
             if (id.Length != 12)
             {
-                return BadRequest("El ID debe tener 12 caracteres.");
+                //return BadRequest("El ID debe tener 12 caracteres.");
+                response.Status = "BadRequest";
+                response.Message = "false";
+                return StatusCode(400, response);
+
             }
             string caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             foreach (char c in id)
             {
                 if (!caracteresPermitidos.Contains(c))
                 {
-                    return BadRequest(new { response = false });
+                    //return BadRequest(new { response = false });
+                    
+                    response.Status = "BadRequest";
+                    response.Message = "false";
+                    return StatusCode(400, response);
                 }
             }
-            var response = new { response = true };
-            return Ok(response);
+            //var response = new { response = true };
+            //return Ok(response);
+            response.Status = "Success";
+            response.Message = "true";
+            return StatusCode(200, response);
         }
     }
 }
