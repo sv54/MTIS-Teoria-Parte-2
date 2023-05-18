@@ -50,7 +50,7 @@ namespace IO.Swagger.Controllers
         {
             List<Envio> envios = new List<Envio>();
             List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
-            result = DBUtils.DbGet("SELECT * FROM envio WHERE estado='pendiente'");
+            result = DBUtils.DbGet("SELECT * FROM envio WHERE id='"+id+"'");
             if(result.Count != 0)
             {
                 Envio envio = new Envio();
