@@ -30,7 +30,7 @@ namespace IO.Swagger.Models
         /// Identificador del seguimiento.
         /// </summary>
         /// <value>Identificador del seguimiento.</value>
-        [Required]
+ 
 
         [DataMember(Name="identificador")]
         public string Identificador { get; set; }

@@ -48,16 +48,19 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult OpenAccesoSeguimiento([FromRoute][Required]string id)
         {
-
-            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + 1 + "' WHERE id = '" + id + "'";
+            Response response = new Response();
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + 1 + "' WHERE codigo = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
-
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
+                response.Status = "200";
+                response.Message = "Se ha abierto el acceso al seguimiento";
+                return Ok(response);
             }
             else
             {
-                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+                response.Status = "404";
+                response.Message = "No se ha encontrado el seguimiento";
+                return NotFound(response);
 
             }
         }
@@ -158,19 +161,20 @@ namespace IO.Swagger.Controllers
             if (body.Acceso == true) {
                 accesoInt = 1;
             }
-            string updateRowSQL = "UPDATE mtisteoria.seguimiento  SET acceso = '" + accesoInt + "', estado = '" + body.Estado + "' WHERE id = " + id;
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento SET acceso = '" + accesoInt + "', estado = '" + body.Estado + "' WHERE codigo = '" + id + "'";
             Console.WriteLine(updateRowSQL);
 
             if (DBUtils.DbModif(updateRowSQL))
             {
-
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
+                return Ok("Se ha actualizado seguimiento");
+                //return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
             }
             else
             {
-                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
-
+                return Ok("No se ha podido actualizar seguimiento");
+                //return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
             }
         }
     }
+
 }
