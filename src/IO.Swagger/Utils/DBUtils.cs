@@ -53,6 +53,37 @@ namespace IO.Swagger.Utils
         }
 
         /// <summary>
+        /// Recibe una comando UPDATE para modificar un valor en la Base de Datos y devuelve un buleano con el estado de la ejecucion
+        /// </summary>
+        /// <param name="command">Comando SQL para UPDATE</param>
+        /// <returns>True si se ha modificado correctamente, False en caso contrario</returns>
+        public static int DbCreateReturnId(string command)
+        {
+            MySqlCommand cmd = null;
+            int result = 0;
+            try
+            {
+                cmd = new MySqlCommand(command + "; SELECT SCOPE_IDENTITY();", conexion);
+                conexion.Open();
+                // Modificar
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: ");
+                Console.WriteLine(e.ToString());
+                Debug.WriteLine("ERROR: \n\n");
+                Debug.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (cmd != null) cmd.Dispose();
+                if (conexion != null) conexion.Close();
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Recibe una comando SELECT y devuelve una lista <COLUMNA, VALOR>
         /// </summary>
         /// <param name="command">Comando SQL para SELECT</param>
