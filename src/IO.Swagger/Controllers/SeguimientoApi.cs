@@ -113,7 +113,7 @@ namespace IO.Swagger.Controllers
         [Route("/VHJ1_1/MTIS/1.0.0/Seguimiento")]
         [ValidateModelState]
         [SwaggerOperation("SeguimientoPost")]
-        [SwaggerResponse(statusCode: 201, type: typeof(Seguimiento), description: "OK")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Response), description: "OK")]
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
