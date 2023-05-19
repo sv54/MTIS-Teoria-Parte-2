@@ -177,18 +177,18 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult EnvioPost([FromBody]Envio body, [FromHeader]string restKey)
         {
-             
+
             /* Comprobar rest key
             if (!conexion.esCorrectaRestKey(body.RestKey))
             {
                 return StatusCode(403, JsonConvert.DeserializeObject("{\"mensaje\" : \"RestKey incorrecta\"}"));
             }
             */
-            
 
-            string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia)" +
-                    "VALUES('"+body.Estado+"', '"+ body.Descripcion + "', '"+body.Origen+"', '"+body.Destino+"', '"+body.Peso+"', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longitud
-                    + "', '" + body.Importancia + "')";
+
+            string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia, coste)" +
+                    "VALUES('" + body.Estado + "', '" + body.Descripcion + "', '" + body.Origen + "', '" + body.Destino + "', '" + body.Peso + "', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longitud
+                    + "', '" + body.Importancia + "','" + body.Coste + "')";
             int respDB = DBUtils.DbCreateReturnId(insertRowSQL);
             if (respDB != 0)
             {
