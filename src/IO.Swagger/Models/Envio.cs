@@ -25,12 +25,13 @@ namespace IO.Swagger.Models
     /// </summary>
     [DataContract]
     public partial class Envio : IEquatable<Envio>
-    { 
+    {
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
+        /// <value>Gets or Sets Id</value>
 
-        [DataMember(Name="id")]
+        [DataMember(Name = "id")]
         public long? Id { get; set; }
 
         /// <summary>
@@ -38,36 +39,55 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>En_espera, En_curso o Entregado</value>
 
-        [DataMember(Name="estado")]
+        [DataMember(Name = "estado")]
         public string Estado { get; set; }
 
         /// <summary>
         /// Gets or Sets Descripcion
         /// </summary>
+        /// <value>Gets or Sets Descripcion</value>
 
-        [DataMember(Name="descripcion")]
+        [DataMember(Name = "descripcion")]
         public string Descripcion { get; set; }
 
         /// <summary>
         /// Gets or Sets Origen
         /// </summary>
+        /// <value>Gets or Sets Origen</value>
 
-        [DataMember(Name="origen")]
+        [DataMember(Name = "origen")]
         public string Origen { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Origen
+        /// </summary>
+        /// <value>Gets or Sets Origen</value>
+
+        [DataMember(Name = "origenCp")]
+        public string OrigenCp { get; set; }
 
         /// <summary>
         /// Gets or Sets Destino
         /// </summary>
+        /// <value>Gets or Sets Destino</value>
 
-        [DataMember(Name="destino")]
+        [DataMember(Name = "destino")]
         public string Destino { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Destino
+        /// </summary>
+        /// <value>Gets or Sets Destino</value>
+
+        [DataMember(Name = "destinoCp")]
+        public string DestinoCp { get; set; }
 
         /// <summary>
         /// En gramos
         /// </summary>
         /// <value>En gramos</value>
 
-        [DataMember(Name="peso")]
+        [DataMember(Name = "peso")]
         public long? Peso { get; set; }
 
         /// <summary>
@@ -75,7 +95,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>En centimetros</value>
 
-        [DataMember(Name="altura")]
+        [DataMember(Name = "altura")]
         public long? Altura { get; set; }
 
         /// <summary>
@@ -83,7 +103,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>En centimetros</value>
 
-        [DataMember(Name="anchura")]
+        [DataMember(Name = "anchura")]
         public long? Anchura { get; set; }
 
         /// <summary>
@@ -91,7 +111,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>En centimetros</value>
 
-        [DataMember(Name="longitud")]
+        [DataMember(Name = "longitud")]
         public long? Longitud { get; set; }
 
         /// <summary>
@@ -99,8 +119,16 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>Baja, Normal o Alta</value>
 
-        [DataMember(Name="importancia")]
+        [DataMember(Name = "importancia")]
         public string Importancia { get; set; }
+
+        /// <summary>
+        /// Coste
+        /// </summary>
+        /// <value>Coste</value>
+
+        [DataMember(Name = "coste")]
+        public string Coste { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -109,17 +137,20 @@ namespace IO.Swagger.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Envio {\n");
+            sb.Append("class IOSwaggerModelsEnvio {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Estado: ").Append(Estado).Append("\n");
             sb.Append("  Descripcion: ").Append(Descripcion).Append("\n");
             sb.Append("  Origen: ").Append(Origen).Append("\n");
+            sb.Append("  OrigenCp: ").Append(OrigenCp).Append("\n");
             sb.Append("  Destino: ").Append(Destino).Append("\n");
+            sb.Append("  DestinoCp: ").Append(DestinoCp).Append("\n");
             sb.Append("  Peso: ").Append(Peso).Append("\n");
             sb.Append("  Altura: ").Append(Altura).Append("\n");
             sb.Append("  Anchura: ").Append(Anchura).Append("\n");
             sb.Append("  Longitud: ").Append(Longitud).Append("\n");
             sb.Append("  Importancia: ").Append(Importancia).Append("\n");
+            sb.Append("  Coste: ").Append(Coste).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -146,65 +177,80 @@ namespace IO.Swagger.Models
         }
 
         /// <summary>
-        /// Returns true if Envio instances are equal
+        /// Returns true if IOSwaggerModelsEnvio instances are equal
         /// </summary>
-        /// <param name="other">Instance of Envio to be compared</param>
+        /// <param name="other">Instance of IOSwaggerModelsEnvio to be compared</param>
         /// <returns>Boolean</returns>
         public bool Equals(Envio other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
+            return
                 (
                     Id == other.Id ||
                     Id != null &&
                     Id.Equals(other.Id)
-                ) && 
+                ) &&
                 (
                     Estado == other.Estado ||
                     Estado != null &&
                     Estado.Equals(other.Estado)
-                ) && 
+                ) &&
                 (
                     Descripcion == other.Descripcion ||
                     Descripcion != null &&
                     Descripcion.Equals(other.Descripcion)
-                ) && 
+                ) &&
                 (
                     Origen == other.Origen ||
                     Origen != null &&
                     Origen.Equals(other.Origen)
-                ) && 
+                ) &&
+                (
+                    OrigenCp == other.OrigenCp ||
+                    OrigenCp != null &&
+                    OrigenCp.Equals(other.OrigenCp)
+                ) &&
                 (
                     Destino == other.Destino ||
                     Destino != null &&
                     Destino.Equals(other.Destino)
-                ) && 
+                ) &&
+                (
+                    DestinoCp == other.DestinoCp ||
+                    DestinoCp != null &&
+                    DestinoCp.Equals(other.DestinoCp)
+                ) &&
                 (
                     Peso == other.Peso ||
                     Peso != null &&
                     Peso.Equals(other.Peso)
-                ) && 
+                ) &&
                 (
                     Altura == other.Altura ||
                     Altura != null &&
                     Altura.Equals(other.Altura)
-                ) && 
+                ) &&
                 (
                     Anchura == other.Anchura ||
                     Anchura != null &&
                     Anchura.Equals(other.Anchura)
-                ) && 
+                ) &&
                 (
                     Longitud == other.Longitud ||
                     Longitud != null &&
                     Longitud.Equals(other.Longitud)
-                ) && 
+                ) &&
                 (
                     Importancia == other.Importancia ||
                     Importancia != null &&
                     Importancia.Equals(other.Importancia)
+                ) &&
+                (
+                    Coste == other.Coste ||
+                    Coste != null &&
+                    Coste.Equals(other.Coste)
                 );
         }
 
@@ -218,32 +264,38 @@ namespace IO.Swagger.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Id != null)
+                if (Id != null)
                     hashCode = hashCode * 59 + Id.GetHashCode();
-                    if (Estado != null)
+                if (Estado != null)
                     hashCode = hashCode * 59 + Estado.GetHashCode();
-                    if (Descripcion != null)
+                if (Descripcion != null)
                     hashCode = hashCode * 59 + Descripcion.GetHashCode();
-                    if (Origen != null)
+                if (Origen != null)
                     hashCode = hashCode * 59 + Origen.GetHashCode();
-                    if (Destino != null)
+                if (OrigenCp != null)
+                    hashCode = hashCode * 59 + OrigenCp.GetHashCode();
+                if (Destino != null)
                     hashCode = hashCode * 59 + Destino.GetHashCode();
-                    if (Peso != null)
+                if (DestinoCp != null)
+                    hashCode = hashCode * 59 + DestinoCp.GetHashCode();
+                if (Peso != null)
                     hashCode = hashCode * 59 + Peso.GetHashCode();
-                    if (Altura != null)
+                if (Altura != null)
                     hashCode = hashCode * 59 + Altura.GetHashCode();
-                    if (Anchura != null)
+                if (Anchura != null)
                     hashCode = hashCode * 59 + Anchura.GetHashCode();
-                    if (Longitud != null)
+                if (Longitud != null)
                     hashCode = hashCode * 59 + Longitud.GetHashCode();
-                    if (Importancia != null)
+                if (Importancia != null)
                     hashCode = hashCode * 59 + Importancia.GetHashCode();
+                if (Coste != null)
+                    hashCode = hashCode * 59 + Coste.GetHashCode();
                 return hashCode;
             }
         }
 
         #region Operators
-        #pragma warning disable 1591
+#pragma warning disable 1591
 
         public static bool operator ==(Envio left, Envio right)
         {
@@ -255,7 +307,7 @@ namespace IO.Swagger.Models
             return !Equals(left, right);
         }
 
-        #pragma warning restore 1591
+#pragma warning restore 1591
         #endregion Operators
     }
 }
