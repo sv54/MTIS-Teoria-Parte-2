@@ -187,9 +187,9 @@ namespace IO.Swagger.Controllers
             */
 
 
-            string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia, coste)" +
+            string insertRowSQL = "INSERT INTO mtisteoria.envio (estado, descripcion, origen, destino, peso, altura, anchura, longitud, importancia, coste, idRepartidor)" +
                     "VALUES('" + body.Estado + "', '" + body.Descripcion + "', '" + body.Origen + "', '" + body.Destino + "', '" + body.Peso + "', '" + body.Altura + "', '" + body.Anchura + "', '" + body.Longitud
-                    + "', '" + body.Importancia + "','" + body.Coste + "')";
+                    + "', '" + body.Importancia + "','" + body.Coste + "','" + body.idrepartidor + "')";
             int respDB = DBUtils.DbCreateReturnId(insertRowSQL);
             if (respDB != 0)
             {
@@ -208,9 +208,9 @@ namespace IO.Swagger.Controllers
         }
 
         /// <summary>
-        /// Registrar nuevo envio
+        ///Asignar repartidor a envio
         /// </summary>
-        /// <remarks>Registrarmos nuevo envio</remarks>
+        /// <remarks>Asignar un repartidor a un envio</remarks>
         /// <param name="body">Estructura para hacer peticiones</param>
         /// <param name="restKey">Api Key</param>
         /// <response code="200">Success</response>
@@ -251,7 +251,7 @@ namespace IO.Swagger.Controllers
 
 
         /// <summary>
-        /// 
+        /// Actualizar envio
         /// </summary>
         /// <param name="body">Estructura para hacer peticiones</param>
         /// <param name="restKey">Api Key</param>
@@ -274,7 +274,7 @@ namespace IO.Swagger.Controllers
             //UPDATE `mtisteoria`.`envio` SET `estado` = 'stringg', `descripcion` = 'g', `origen` = 'g', `destino` = 'g', `peso` = '1', `altura` = '2', `anchura` = '1', `longitud` = '1', `importancia` = 'g' WHERE (`id` = '3');
 
             string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = '" + body.Estado + "', descripcion = '" + body.Descripcion + "', origen = '" + body.Origen + "', destino = '" + body.Destino + "', " +
-                    " peso = '" + body.Peso + "', altura = '" + body.Altura + "', anchura = '" + body.Anchura + "', longitud = '" + body.Longitud + "', importancia = '" + body.Importancia + "' " +
+                    " peso = '" + body.Peso + "', altura = '" + body.Altura + "', anchura = '" + body.Anchura + "', longitud = '" + body.Longitud + "', importancia = '" + body.Importancia + "', coste = '" + body.Coste + "', idRepartidor = '" + body.idrepartidor + "' " +
                     " WHERE id = '"+body.Id +"'";
             if (DBUtils.DbModif(updateRowSQL))
             {
