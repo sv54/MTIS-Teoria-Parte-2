@@ -63,10 +63,11 @@ namespace IO.Swagger.Utils
             int result = 0;
             try
             {
-                cmd = new MySqlCommand(command + "; SELECT SCOPE_IDENTITY();", conexion);
+                cmd = new MySqlCommand(command + "; SELECT LAST_INSERT_ID()", conexion);
                 conexion.Open();
                 // Modificar
-                result = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
+                result = (int)cmd.LastInsertedId;
             }
             catch (Exception e)
             {
