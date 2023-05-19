@@ -231,7 +231,7 @@ namespace IO.Swagger.Controllers
         {
           
 
-            string updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "'" +
+            string updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "', estado = 'enviado'" +
                                  " WHERE id = '" + body.Id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
