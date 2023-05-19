@@ -63,6 +63,7 @@ namespace IO.Swagger.Controllers
                 string anchura = "";
                 string longitud = "";
                 string importancia = "";
+                string idrepartidor = "";
 
                 result[0].TryGetValue("estado", out estado);
                 result[0].TryGetValue("descripcion", out descripcion);

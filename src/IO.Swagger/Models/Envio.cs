@@ -127,6 +127,10 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>Coste</value>
 
+
+        [DataMember(Name = "idrepartidor")]
+        public long? idrepartidor { get; set; }
+
         [DataMember(Name = "coste")]
         public string Coste { get; set; }
 
@@ -150,6 +154,7 @@ namespace IO.Swagger.Models
             sb.Append("  Anchura: ").Append(Anchura).Append("\n");
             sb.Append("  Longitud: ").Append(Longitud).Append("\n");
             sb.Append("  Importancia: ").Append(Importancia).Append("\n");
+            sb.Append("  idrepartidor: ").Append(Longitud).Append("\n");
             sb.Append("  Coste: ").Append(Coste).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -248,6 +253,11 @@ namespace IO.Swagger.Models
                     Importancia.Equals(other.Importancia)
                 ) &&
                 (
+                    idrepartidor == other.idrepartidor ||
+                    idrepartidor != null &&
+                    idrepartidor.Equals(other.idrepartidor)
+                ) &&
+                (
                     Coste == other.Coste ||
                     Coste != null &&
                     Coste.Equals(other.Coste)
@@ -288,6 +298,8 @@ namespace IO.Swagger.Models
                     hashCode = hashCode * 59 + Longitud.GetHashCode();
                 if (Importancia != null)
                     hashCode = hashCode * 59 + Importancia.GetHashCode();
+                if (idrepartidor != null)
+                    hashCode = hashCode * 59 + idrepartidor.GetHashCode();
                 if (Coste != null)
                     hashCode = hashCode * 59 + Coste.GetHashCode();
                 return hashCode;
