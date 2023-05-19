@@ -132,7 +132,7 @@ namespace IO.Swagger.Models
         public long? idrepartidor { get; set; }
 
         [DataMember(Name = "coste")]
-        public string Coste { get; set; }
+        public long? Coste { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

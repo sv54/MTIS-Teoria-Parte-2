@@ -203,11 +203,52 @@ namespace IO.Swagger.Controllers
                 return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
 
             }
-
-        //exampleJson = "[ {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n}, {\n  \"descripcion\" : \"Envio con material delicado\",\n  \"importancia\" : \"Normal\",\n  \"estado\" : \"En_espera\",\n  \"peso\" : 300,\n  \"altura\" : 10,\n  \"anchura\" : 20,\n  \"longitud\" : 20,\n  \"id\" : 5632,\n  \"origen\" : \"Alicante\",\n  \"destino\" : \"Calle Vicente Blasco Ibañez, 8, 03181, Torrevieja Alicante, Alicante\"\n} ]";
         
 
         }
+
+        /// <summary>
+        /// Registrar nuevo envio
+        /// </summary>
+        /// <remarks>Registrarmos nuevo envio</remarks>
+        /// <param name="body">Estructura para hacer peticiones</param>
+        /// <param name="restKey">Api Key</param>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Internal error</response>
+        [HttpPut]
+        [Route("/VHJ1_1/MTIS/1.0.0/Envio/Repartidor")]
+        [ValidateModelState]
+        [SwaggerOperation("EnvioAsignarRepartidor")]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<Envio>), description: "Success")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
+        public virtual IActionResult EnvioRepartidor([FromBody] Envio body, [FromHeader] string restKey)
+        {
+          
+
+            string updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "'" +
+                                 " WHERE id = '" + body.Id + "'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha asignado repartidor al envio\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
+        }
+
+
+    
+
+
 
         /// <summary>
         /// 
