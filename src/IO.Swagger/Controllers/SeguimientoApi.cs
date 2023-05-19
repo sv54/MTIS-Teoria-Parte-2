@@ -175,6 +175,47 @@ namespace IO.Swagger.Controllers
                 //return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
             }
         }
+
+        /// <summary>
+        /// Actualizar un seguimiento existente a partir del Envio.
+        /// </summary>
+        /// <param name="body">Estructura para hacer peticiones</param>
+        /// <param name="id">ID del envio.</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Internal error</response>
+        [HttpPut]
+        [Route("/VHJ1_1/MTIS/1.0.0/Seguimiento/Envio/{id}")]
+        [ValidateModelState]
+        [SwaggerOperation("UpdateSeguimientoEnvio")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Response), description: "Success")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
+        public virtual IActionResult UpdateSeguimientoEnvio([FromBody] Seguimiento body, [FromRoute][Required] string id)
+        {
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento SET estado = '" + body.Estado + "' WHERE fk_paquete = '" + id + "'";
+
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+                Response response = new Response();
+                response.Status = "Success";
+                response.Message = "true";
+                return StatusCode(200, response);
+                //return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Se ha modificado el seguimiento\"\n}"));
+            }
+            else
+            {
+                Response response = new Response();
+                response.Status = "Success";
+                response.Message = "false";
+                return StatusCode(400, response);
+                //return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+            }
+        }
     }
 
 }
