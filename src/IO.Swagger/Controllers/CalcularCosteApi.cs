@@ -35,8 +35,6 @@ namespace IO.Swagger.Controllers
         /// <param name="dirInCp">Codigo Postal de origen</param>
         /// <param name="dirFin">Direccion destino</param>
         /// <param name="dirFinCp">Codigo Postal de destino</param>
-        /// <param name="dimensiones">Dimensiones del paquete</param>
-        /// <param name="peso">Peso del paquete</param>
         /// <param name="restKey">Api Key</param>
         /// <response code="200">Success</response>
         /// <response code="400">Bad request</response>
@@ -50,7 +48,7 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
-        public virtual IActionResult CalcularCostePost([FromQuery][Required()]string dirIn, [FromQuery][Required()]int? dirInCp, [FromQuery][Required()]string dirFin, [FromQuery][Required()]int? dirFinCp, [FromQuery][Required()]string dimensiones, [FromQuery][Required()]int? peso, [FromHeader]string restKey)
+        public virtual IActionResult CalcularCostePost([FromQuery][Required()]string dirIn, [FromQuery][Required()]int? dirInCp, [FromQuery][Required()]string dirFin, [FromQuery][Required()]int? dirFinCp, [FromHeader]string restKey)
         {
             try
             {
@@ -62,7 +60,7 @@ namespace IO.Swagger.Controllers
                     response.Message = "Falta el RestKey o es invalido";
                     return StatusCode(401, response);
                 }*/
-
+                Console.WriteLine(dirInCp.ToString());
                 List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
                 result = DBUtils.DbGet("SELECT * FROM coste WHERE originCp='" + dirInCp.ToString() + "' and destCp='"+ dirFinCp.ToString() + "'");
                 if (result.Count != 0)
