@@ -38,7 +38,7 @@ namespace IO.Swagger.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="500">Internal error</response>
-        [HttpPost]
+        [HttpGet]
         [Route("/VHJ1_1/MTIS/1.0.0/EnviarPaquete/confirmar")]
         [ValidateModelState]
         [SwaggerOperation("EnviarPaqueteConfirmarPost")]
@@ -58,12 +58,13 @@ namespace IO.Swagger.Controllers
                     response.Message = "Falta el RestKey o es invalido";
                     return StatusCode(401, response);
                 }*/
-
-                if (DBUtils.DbModif("UPDATE envio SET estado='recibido' WHERE id='" + idEnvio.ToString() + "'"))
+                DateTime fechaActual = DateTime.Now;
+                if (DBUtils.DbModif("UPDATE envio SET estado='pendiente', idRepartidor=NULL, fechaRecepcion='" + fechaActual.ToString("yyyy-MM-dd") + "', entregaPrevista='" + fechaActual.AddDays(30).ToString("yyyy-MM-dd") + "' WHERE id='" + idEnvio.ToString() + "'"))
                 {
+
                     Response response = new Response();
                     response.Status = "Success";
-                    response.Message = "La recepcion del paquete se ha confirmado con exito";
+                    response.Message = "El paquete recibido el " + fechaActual.ToString("yyyy - MM - dd") + ", fecha de entrega prevista " + fechaActual.AddDays(30).ToString("yyyy-MM-dd");
 
                     return StatusCode(200, response);
                 }
@@ -95,7 +96,7 @@ namespace IO.Swagger.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
-        [HttpPut]
+        [HttpGet]
         [Route("/VHJ1_1/MTIS/1.0.0/EnviarPaquete/fecha")]
         [ValidateModelState]
         [SwaggerOperation("EnviarPaqueteFechaPut")]
@@ -117,7 +118,7 @@ namespace IO.Swagger.Controllers
                     return StatusCode(401, response);
                 }*/
                 DateTime fechaActual = DateTime.Now.AddDays(5);
-                if (DBUtils.DbModif("UPDATE envio SET fechaRecogida='"+ fechaActual.ToString("yyyy-MM-dd") + "' WHERE id='" + idEnvio.ToString() + "'"))
+                if (DBUtils.DbModif("UPDATE envio SET fechaRecepcion='" + fechaActual.ToString("yyyy-MM-dd") + "' WHERE id='" + idEnvio.ToString() + "'"))
                 {
                     Response response = new Response();
                     response.Status = "Success";
