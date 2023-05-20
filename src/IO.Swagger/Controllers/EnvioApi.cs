@@ -279,10 +279,14 @@ namespace IO.Swagger.Controllers
 
             string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = 'entregado'" +
                                  " WHERE id = '" + id + "'";
+            string updateSeguimientoSQL = "UPDATE mtisteoria.seguimiento SET estado = 'Envio entregado' WHERE fk_paquete = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
-
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado a entregado\"\n}"));
+                if (DBUtils.DbModif(updateSeguimientoSQL))
+                {
+                    return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado en envio y seguimiento a entregado\"\n}"));
+                }
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado solo en envio a entregado\"\n}"));
             }
             else
             {
@@ -317,10 +321,15 @@ namespace IO.Swagger.Controllers
 
             string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = 'esperaCliente'" +
                                  " WHERE id = '" + id + "'";
+            string updateSeguimientoSQL = "UPDATE mtisteoria.seguimiento SET estado = 'Esperando recogida del cliente' WHERE fk_paquete = '" + id + "'";
+            Console.WriteLine(updateRowSQL);
             if (DBUtils.DbModif(updateRowSQL))
             {
-
-                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado a esperaCliente\"\n}"));
+                if (DBUtils.DbModif(updateSeguimientoSQL))
+                {
+                    return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado en envio y seguimiento a esperaCliente\"\n}"));
+                }
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado solo en envio a esperaCliente\"\n}"));
             }
             else
             {
