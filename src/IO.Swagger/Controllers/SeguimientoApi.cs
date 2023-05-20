@@ -197,8 +197,9 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
         public virtual IActionResult UpdateSeguimientoEnvio([FromBody] Seguimiento body, [FromRoute][Required] string id)
         {
-            string updateRowSQL = "UPDATE mtisteoria.seguimiento SET estado = '" + body.Estado + "' WHERE fk_paquete = '" + id + "'";
 
+            string updateRowSQL = "UPDATE mtisteoria.seguimiento SET estado = '" + body.Estado + "' WHERE fk_paquete = '" + id + "'";
+            Console.WriteLine(updateRowSQL);
             if (DBUtils.DbModif(updateRowSQL))
             {
                 Response response = new Response();
@@ -212,7 +213,7 @@ namespace IO.Swagger.Controllers
                 Response response = new Response();
                 response.Status = "Success";
                 response.Message = "false";
-                return StatusCode(400, response);
+                return StatusCode(500, response);
                 //return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
             }
         }
