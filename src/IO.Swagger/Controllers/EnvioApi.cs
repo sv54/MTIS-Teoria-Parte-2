@@ -257,7 +257,7 @@ namespace IO.Swagger.Controllers
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
         [HttpPut]
-        [Route("/VHJ1_1/MTIS/1.0.0/Envio/Entregado")]
+        [Route("/VHJ1_1/MTIS/1.0.0/Envio/{id}/Entregado")]
         [ValidateModelState]
         [SwaggerOperation("EnvioAsignarRepartidor")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Envio>), description: "Success")]
@@ -265,12 +265,12 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
-        public virtual IActionResult EnvioEntregado([FromBody] Envio body, [FromHeader] string restKey)
+        public virtual IActionResult EnvioEntregado([FromRoute][Required] string id, [FromHeader] string restKey)
         {
 
 
             string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = 'entregado'" +
-                                 " WHERE id = '" + body.Id + "'";
+                                 " WHERE id = '" + id + "'";
             if (DBUtils.DbModif(updateRowSQL))
             {
 
