@@ -253,8 +253,83 @@ namespace IO.Swagger.Controllers
             }
         }
 
+        /// <summary>
+        /// Asignar estado de envio a entregado
+        /// </summary>
+        /// <remarks>Asignar estado de envio a entregado</remarks>
+        /// <param name="body">Estructura para hacer peticiones</param>
+        /// <param name="restKey">Api Key</param>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Internal error</response>
+        [HttpPut]
+        [Route("/VHJ1_1/MTIS/1.0.0/Envio/{id}/Entregado")]
+        [ValidateModelState]
+        [SwaggerOperation("EnvioEntregado")]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<Envio>), description: "Success")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
+        public virtual IActionResult EnvioEntregado([FromRoute][Required] string id, [FromHeader] string restKey)
+        {
 
-    
+
+            string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = 'entregado'" +
+                                 " WHERE id = '" + id + "'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado a entregado\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
+        }
+
+        /// <summary>
+        /// Asignar estado de envio a esperaCliente
+        /// </summary>
+        /// <remarks>Asignar estado de envio a esperaCliente</remarks>
+        /// <param name="body">Estructura para hacer peticiones</param>
+        /// <param name="restKey">Api Key</param>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Internal error</response>
+        [HttpPut]
+        [Route("/VHJ1_1/MTIS/1.0.0/Envio/{id}/EsperaCliente")]
+        [ValidateModelState]
+        [SwaggerOperation("EnvioEsperaCliente")]
+        [SwaggerResponse(statusCode: 200, type: typeof(List<Envio>), description: "Success")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
+        public virtual IActionResult EnvioEsperaCliente([FromRoute][Required] string id, [FromHeader] string restKey)
+        {
+
+
+            string updateRowSQL = "UPDATE mtisteoria.envio  SET estado = 'esperaCliente'" +
+                                 " WHERE id = '" + id + "'";
+            if (DBUtils.DbModif(updateRowSQL))
+            {
+
+                return StatusCode(200, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"Cambiado estado a esperaCliente\"\n}"));
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
+        }
+
+
 
 
 
