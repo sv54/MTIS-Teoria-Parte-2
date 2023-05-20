@@ -121,7 +121,7 @@ namespace IO.Swagger.Controllers
                 {
                     Response response = new Response();
                     response.Status = "Success";
-                    response.Message = "La fecha de recogida del paquete se ha actualizado con exito";
+                    response.Message = fechaActual.ToString("yyyy-MM-dd");
 
                     return StatusCode(200, response);
                 }
