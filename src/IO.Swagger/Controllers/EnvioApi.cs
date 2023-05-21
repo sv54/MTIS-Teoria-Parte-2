@@ -230,16 +230,21 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult EnvioRepartidor([FromBody] Envio body, [FromHeader] string restKey)
         {
             string updateRowSQL = "";
-            try
+            
+            if(body.Estado == "" || body.Estado == null)
+            {
+
+                updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "', estado = 'enviado'" +
+                                 " WHERE id = '" + body.Id + "'";
+            }
+            else
             {
                 updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "', estado = '" + body.Estado + "'" +
                                  " WHERE id = '" + body.Id + "'";
             }
-            catch(Exception)
-            {
-                updateRowSQL = "UPDATE mtisteoria.envio  SET idRepartidor = '" + body.idrepartidor + "', estado = 'enviado'" +
-                                 " WHERE id = '" + body.Id + "'";
-            }
+            
+            
+            
 
             if (DBUtils.DbModif(updateRowSQL))
             {
