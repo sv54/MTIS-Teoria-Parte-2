@@ -64,6 +64,7 @@ namespace IO.Swagger.Controllers
                 string longitud = "";
                 string importancia = "";
                 string idrepartidor = "";
+                string coste = "";
 
                 result[0].TryGetValue("estado", out estado);
                 result[0].TryGetValue("descripcion", out descripcion);
@@ -74,6 +75,8 @@ namespace IO.Swagger.Controllers
                 result[0].TryGetValue("anchura", out anchura);
                 result[0].TryGetValue("longitud", out longitud);
                 result[0].TryGetValue("importancia", out importancia);
+                result[0].TryGetValue("idRepartidor", out idrepartidor);
+                result[0].TryGetValue("coste", out coste);
 
                 envio.Id = int.Parse(id);
                 envio.Estado = estado;
@@ -85,8 +88,10 @@ namespace IO.Swagger.Controllers
                 envio.Anchura = int.Parse(anchura);
                 envio.Longitud = int.Parse(longitud);
                 envio.Importancia = importancia;
+                if (idrepartidor != "") envio.idrepartidor = int.Parse(idrepartidor);
+                if (coste != "") envio.Coste = int.Parse(coste);
 
-            return StatusCode(200, envio);
+                return StatusCode(200, envio);
             }
             return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se ha encontrado envio con id "+id+"\"\n}"));
         }
