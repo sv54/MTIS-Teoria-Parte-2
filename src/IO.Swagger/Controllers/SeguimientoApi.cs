@@ -99,6 +99,30 @@ namespace IO.Swagger.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("/VHJ1_1/MTIS/1.0.0/CodSeguimiento/{idenvio}")]
+        [ValidateModelState]
+        [SwaggerOperation("SeguimientoGetCodigo")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Seguimiento), description: "OK")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Response), description: "Bad request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Response), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Response), description: "Not found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Response), description: "Internal error")]
+        public virtual IActionResult SeguimientoGetCodigo([FromRoute][Required] string idenvio, [FromHeader] string restKey)
+        {
+            var sql = "SELECT codigo FROM seguimiento WHERE fk_paquete='" + idenvio + "'";
+            var result = DBUtils.DbGet(sql);
+            if (result.Count != 0)
+            {
+                return StatusCode(200, result);
+            }
+            else
+            {
+                return StatusCode(400, JsonConvert.DeserializeObject("{\n  \"mensaje\" : \"No se han modificado filas\"\n}"));
+
+            }
+        }
+
         /// <summary>
         /// Crear un nuevo seguimiento
         /// </summary>
